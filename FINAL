@@ -1,0 +1,168 @@
+#Bonbon Cost Calculator
+#This program can preview the costs of the bonbons and boxes, while also determining the optimal choice of boxes to minimize the loss.
+#Author: Stanley Chan 301200644
+
+import random
+import math
+
+print ("Please provide your name")
+fname =(input("Your first name --> "))
+lname =(input("Your last name --> "))
+
+#WELCOME MESSAGE
+print("Dear",fname,lname,"please follow the system prompts.")
+print("Recall that the system assumes that you type correctly!")
+print()
+
+#STAGE A
+print("STAGE (a) - Asking for Costs")
+print()
+
+#Default Costs
+A=2
+B=1.5
+Oval=5
+Round=5.5
+
+print("The default costs are: A: 2, B: 1.5, Oval:5, Round: 5.5")
+if (input("Do you accept the default costs? (Y/N) ==>")=='y'):
+    print("Ok, the default costs will be used")
+else:
+    print("Please provide the costs of...")
+    A=float(input("a bonbon A (Almond) -->"))
+    B=float(input("a bonbon B (Peanut Butter) -->"))
+    Oval=float(input("an Oval box -->"))
+    Round=float(input("a Round box -->"))
+
+print("TRACE** - the costs will be")
+print("TRACE: A:",A,"B:",B,"Oval:",Oval,"Round:",Round)
+print()
+print("Stage (a) is done!")
+print()
+
+#STAGE B
+print("STAGE (b) From Boxes to Bonbons")
+print()
+if (input("Do you want to run stage (b)? (Y/N) ==>")=='y'):
+    print("Please provide the amount of ...")
+#STAGE C if choose yes
+    nOval=float(input("Number of Oval boxes to be produced --> "))
+    nRound=float(input("Number of Round boxes to be produced --> "))
+    print()
+    totalOvalC=nOval*Oval
+    totalRoundC=nRound*Round
+    print("TRACE: cost oval:",totalOvalC)
+    print("TRACE: cost round:",totalRoundC)
+    float(totalOvalC)
+    float(totalRoundC)
+    print()
+    print("TRACE: (Recall that an Oval box has 11 bonbons A, and 4 bonbons B)")
+    print("TRACE: (Recall that a Round box has 7 bonbons A, and 4 bonbons B)")
+    print()
+    print("The total cost for the boxes you asked for will be:",totalOvalC+totalRoundC)
+    print("Stage (b) is done!")
+    print()
+
+else:
+    
+    print("Stage (b) is done!")
+    print()
+
+#STAGE C if choose no
+print("STAGE (c) from Bonbons to Boxes")
+print()
+print("How many bonbons do you have of each type?")
+print()
+print("(Recall that an Oval box has 11 bonbons A, and 4 bonbons B)")
+print()
+
+totalA=int(input("bonbon A (Almond) --> "))
+totalB=int(input("bonbon B (Peanut Butter) --> "))
+AOval=totalA//11
+BOval=totalB//4
+print("VALUES OVAL BOXES")
+print()
+
+totalOvalProduce=min(AOval,BOval)
+print("===>The number of oval boxes that can be produced are",totalOvalProduce)
+print()
+
+totalAOleft=totalA-totalOvalProduce*11
+totalBOleft=totalB-totalOvalProduce*4
+
+print("The number of remaining bonbons (when producing only oval boxes) is",totalAOleft,"bonbons A and",totalBOleft,"bonbons B")
+print()
+
+print("END of required CALCULATIONS (c)")
+print()
+
+if (input("Do you want to do the bonus calculations (y/n)?")=='y'):
+    print("=============================")
+    print("CALCULATIONS FOR BONUS POINTS")
+    print("=============================")
+    print()
+    print()
+    print("LOSS OVAL BOXES")
+    print()
+    LossO=totalAOleft*A+totalBOleft*B
+    print("Loss of unused bonbons if only oval boxes are produced is $",LossO)
+    print()
+    print("VALUES ROUND BOXES")
+    print()
+    print("(Recall that a Round box has 7 bonbons A, and 4 bonbons B)")
+    print()
+    ARound=totalA//7
+    BRound=totalB//4
+    totalRoundProduce=min(ARound,BRound)
+    print("===>The number of round boxes that can be produced is",totalRoundProduce)
+    totalARleft=totalA-totalRoundProduce*7
+    totalBRleft=totalB-totalRoundProduce*4
+    print()
+    print("The number of remaining bonbons (when producing only round boxes) is",totalARleft,"bonbons A and",totalBRleft,"bonbons B")
+    print()
+    LossR=totalARleft*A+totalBRleft*B
+    print("Loss of unused bonbons if only round boxes are produced is $",LossR)
+    print()
+    if (LossO>LossR):
+        print("You should produce ",totalRoundProduce," Round boxes because the loss of producing Oval boxes (",LossO,") is greater than the loss of producing Round boxes (",LossR,") and we want to minimize the loss.",sep='')
+    else:
+        print("You should produce ",totalOvalProduce," Oval boxes because the loss of producing Round boxes (",LossR,") is greater than the loss of producing Oval boxes (",LossO,") and we want to minimize the loss.",sep='')
+
+    print("=================================")
+    print("END CALCULATIONS FOR BONUS POINTS")
+    print("=================================")
+else:
+    print()
+
+print()
+print()
+print("STAGE (d) - Secret Code")
+print()
+fname1=fname[0]
+lname1=lname[-1:]
+star='**'
+print("TRACE** the secret code before the random number is ",fname1.lower(),lname1.upper(),star,"A",A,star,B,star,totalOvalProduce,star,sep='')
+randomnum=random.randint(0,totalOvalProduce)
+print("TRACE** the random number is", randomnum)
+print("TRACE** the secret code with the random number is ",fname1.lower(),lname1.upper(),star,"A",A,star,B,star,totalOvalProduce,star,randomnum,star,sep='')
+secret= fname1.lower()+lname1.upper()
+secret = secret + "**"
+secret = secret + "A"
+secret = secret + str(A)
+secret = secret + "**"
+secret = secret + "B"
+secret = secret + str(B)
+secret = secret + "**"
+secret = secret + str(totalOvalProduce)
+secret = secret + "**"
+secret = secret + str(random.randint(0,totalOvalProduce))
+secret = secret + "**"
+
+print("TRACE** the length of the secret code so far is ",len(secret))
+if (len(secret)%2==0):
+    print("The final secret code is: ",secret,"Even",sep='')
+else:
+    print("The final secret code is: ",secret,"Odd",sep='')
+
+print()
+print("END OF THE PROGRAM! BYE!")
